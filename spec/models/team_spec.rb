@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Team, :type => :model do
+describe Team do
   it 'is invalid without name' do
     team = Team.new
     team.valid?
