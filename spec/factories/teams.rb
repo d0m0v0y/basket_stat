@@ -1,11 +1,10 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
+require 'faker'
 
 FactoryGirl.define do
-  factory :one do
-    name 'team_1'
+  factory :team do
+    name { Faker::Name.name }
+    description { Faker::Lorem.sentence }
   end
 
-  factory :two do
-    name 'team_2'
-  end
 end

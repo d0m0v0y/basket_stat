@@ -47,13 +47,10 @@ gem 'ember-source', '~> 1.11.0'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'momentjs-rails', '~> 2.9.0'
 
-group :development do
-  gem 'pry-rails'
-end
-
 group :development, :test do
   gem 'rspec-rails', '~> 3.1.0'
   gem 'factory_girl_rails', '~> 4.4.1'
+  gem 'pry-rails'
 end
 
 group :test do
