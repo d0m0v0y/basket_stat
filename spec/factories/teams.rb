@@ -3,7 +3,7 @@ require 'faker'
 
 FactoryGirl.define do
   factory :team do
-    name { Faker::Name.name }
+    name { Faker::Lorem.word }
     description { Faker::Lorem.sentence }
   end
 
