@@ -73,23 +73,24 @@ describe 'Teams actions'  do
 
     context 'delete team' do
       context 'by valid id' do
-        it 'return success' do
+        it 'return success and decrement teams count' do
           teams = create_list(:team, 5)
 
           delete "/api/v1/teams/#{teams.last.id}", format: :json
 
           expect(response).to be_success
-
+          expect(Team.count).to eq 4
         end
       end
 
       context 'by invalid id' do
-        it 'return error' do
+        it 'return error and keep teams count the same' do
           teams = create_list(:team, 5)
 
           delete "/api/v1/teams/#{teams.last.id+10}", format: :json
 
           expect(response).not_to be_success
+          expect(Team.count).to eq 5
         end
       end
     end
