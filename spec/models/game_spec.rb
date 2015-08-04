@@ -30,6 +30,12 @@ describe Game do
       end
     end
 
+    context 'for already started game' do
+      it 'keeps started_at untouched' do
+        game = create(:started_game)
+        expect { game.start }.not_to change { game.started_at }
+      end
+    end
   end
 
 end
