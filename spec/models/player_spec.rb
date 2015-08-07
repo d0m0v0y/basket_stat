@@ -9,4 +9,12 @@ describe Game do
       expect(player.errors.keys).to contain_exactly(*required_fields)
     end
   end
+
+  context 'valid model' do
+    it 'has no errors' do
+      player = build :player
+      player.valid?
+      expect(player.errors).to be_empty
+    end
+  end
 end

@@ -3,7 +3,7 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :team do
-    name { FFaker::Lorem.word }
+    sequence(:name) { |n| "Team ##{n}" }
     description { FFaker::Lorem.sentence }
   end
 
