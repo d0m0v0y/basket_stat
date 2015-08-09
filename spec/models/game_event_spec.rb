@@ -16,4 +16,5 @@ describe GameEvent do
       expect { game_event.save }.to change {GameEvent.count}.by(1)
     end
   end
+
 end

@@ -17,4 +17,23 @@ describe Game do
       expect(player.errors).to be_empty
     end
   end
+
+  describe '#points' do
+    let(:player) { create :player }
+    let(:game) { create :game}
+
+    [ #events                     points
+      [[:ftm, :ftm, :ftm],          3],
+      [[:ftm, :fta, :fga, :fgm],    3],
+      [[:fgm, :fgm, :fgm3, :fga3],  7]
+    ].each do |events, points|
+    it "returns #{points} for #{events}" do
+      events.each do |event|
+        create :game_event, event_code: event, player: player, game: game
+      end
+      expect(player.points game.id).to eq points
+    end
+
+    end
+  end
 end
