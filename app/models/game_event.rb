@@ -21,4 +21,6 @@ class GameEvent < ActiveRecord::Base
 
   validates :event_time, :game_id, :player_id, presence: true
   validates :event_code, inclusion: {in: GameEvent.event_codes}
+
+  scope :events_by_code, ->(game_id, event_code) { where(game_id: game_id, event_code: event_code) }
 end

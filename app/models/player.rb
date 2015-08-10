@@ -17,13 +17,15 @@ class Player < ActiveRecord::Base
 
   # scope :events_by_code, ->(game_id, event_code) { where(game_id: game_id, event_code: event_code)}
 
+  # delegate :events_by_code, to: :game_events
+
   def full_name
     "#{first_name} #{last_name}"
   end
 
-  def events_by_code(game_id, event_code)
-    game_events.where(game_id: game_id, event_code: event_code).count
-  end
+  # def events_by_code(game_id, event_code)
+  #   game_events.where(game_id: game_id, event_code: event_code).count
+  # end
 
   def played_time(game_id)
     player_times
@@ -34,9 +36,9 @@ class Player < ActiveRecord::Base
   end
 
   def points(game_id)
-     total_points = events_by_code(game_id, GameEvent.event_codes[:ftm]) +
-         2 * events_by_code(game_id, GameEvent.event_codes[:fgm]) +
-         3 * events_by_code(game_id, GameEvent.event_codes[:fgm3])
+     total_points = game_events.events_by_code(game_id, GameEvent.event_codes[:ftm]).count +
+         2 * game_events.events_by_code(game_id, GameEvent.event_codes[:fgm]).count +
+         3 * game_events.events_by_code(game_id, GameEvent.event_codes[:fgm3]).count
     total_points
   end
 

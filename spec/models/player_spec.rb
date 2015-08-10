@@ -19,8 +19,16 @@ describe Game do
   end
 
   describe '#points' do
-    let(:player) { create :player }
+    let(:first_player) { create :player }
+    let(:second_player) { create :player }
     let(:game) { create :game}
+
+    before :each do
+      # create game_events for second_player to add some "noise" in db
+      [:fta, :ftm, :fgm, :fga, :fgm3, :fga3].each do |event_code|
+        create :game_event, event_code: event_code, player: second_player, game: game
+      end
+    end
 
     [ #events                     points
       [[:ftm, :ftm, :ftm],          3],
@@ -29,9 +37,9 @@ describe Game do
     ].each do |events, points|
     it "returns #{points} for #{events}" do
       events.each do |event|
-        create :game_event, event_code: event, player: player, game: game
+        create :game_event, event_code: event, player: first_player, game: game
       end
-      expect(player.points game.id).to eq points
+      expect(first_player.points game.id).to eq points
     end
 
     end
