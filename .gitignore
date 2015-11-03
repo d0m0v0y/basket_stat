@@ -20,3 +20,6 @@
 
 # Ignore vagrant files
 /.vagrant
+
+# Ignore tags files
+tags

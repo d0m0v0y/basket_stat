@@ -11,7 +11,7 @@ module Api
 
       api :GET, '/games/:id', 'Show game by id'
       formats [:json]
-      param :id, :number, :required => true
+      param :id, :number, required: true
       def show
         @game = Game.find(params[:id])
         render json: @game
@@ -35,7 +35,7 @@ module Api
 
       api :post, '/games/:game_id/start', 'Set started_at in current game '
       formats [:json]
-      param :game_id, :number, :required => true
+      param :game_id, :number, required: true
       def start
         @game = Game.find(params[:game_id])
         @game.start
@@ -44,7 +44,7 @@ module Api
 
       api :post, '/games/:game_id/finish', 'Set started_at in current game '
       formats [:json]
-      param :game_id, :number, :required => true
+      param :game_id, :number, required: true
       def finish
         @game = Game.find(params[:game_id])
         @game.finish
