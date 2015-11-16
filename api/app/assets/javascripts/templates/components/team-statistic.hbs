@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Players</th>
+        <th>Points</th>
+        <th>FTA</th>
+        <th>FTM</th>
+        <th>FTP</th>
+        <th>2GA</th>
+        <th>2GM</th>
+        <th>2GP</th>
+        <th>3PA</th>
+        <th>3PM</th>
+        <th>3PP</th>
+        <th>AST</th>
+        <th>BLK</th>
+        <th>ORB</th>
+        <th>DRB</th>
+        <th>LOS</th>
+        <th>STL</th>
+        <th>PF</th>
+        <th>PFC</th>
+        <th>EFF</th>
+      </tr>
+      </thead>
+      <tbody>
+      {{#each stats as |row|}}
+        <tr>
+          <td>{{row.player.nameWithNumber}}</td>
+          <td>{{row.points}}</td>
+          <td>{{row.freeThrowAttempts}}</td>
+          <td>{{row.freeThrowMade}}</td>
+          <td>{{row.freeThrowPercent}}</td>
+          <td>{{row.fieldGoalAttempts}}</td>
+          <td>{{row.fieldGoalMade}}</td>
+          <td>{{row.fieldGoalPercent}}</td>
+          <td>{{row.threePointAttempts}}</td>
+          <td>{{row.threePointMade}}</td>
+          <td>{{row.threePointPercent}}</td>
+          <td>{{row.assists}}</td>
+          <td>{{row.blockshots}}</td>
+          <td>{{row.offenciveRebounds}}</td>
+          <td>{{row.deffenciveRebounds}}</td>
+          <td>{{row.losses}}</td>
+          <td>{{row.steels}}</td>
+          <td>{{row.fouls}}</td>
+          <td>{{row.foulsCommited}}</td>
+          <td>{{row.efficiency}}</td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="text-center">
+  <span class="big-text">{{formattedTime}}</span>
+  {{#if isNotStarted}}
+    <button id="btnStart" class="btn btn-large btn-primary btn-block"
+            type="button" {{action 'start'}} disabled={{startDisabled}}>
+      Start
+    </button>
+  {{else}}
+    <button id="btnResume" class="btn btn-large  btn-block" type="button" {{action 'pause'}}>
+      {{#if paused}}
+        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+        Resume
+      {{else}}
+        <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+        Pause
+      {{/if}}
+    </button>
+  {{/if}}
+</div>

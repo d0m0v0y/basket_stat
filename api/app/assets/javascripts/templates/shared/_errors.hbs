@@ -1,0 +1,13 @@
+<div {{bind-attr class=":row model.errors.length:show:hidden"}}>
+  <div class="col-md-12">
+    <div class="alert alert-danger" role="alert">
+      {{#each error in model.errors.content}}
+        <p>
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          {{error.attribute}}: {{error.message}}
+        </p>
+      {{/each}}
+    </div>
+  </div>
+</div>
+

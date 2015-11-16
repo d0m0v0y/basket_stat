@@ -1,0 +1,44 @@
+<legend>Games List</legend>
+<div class="row">
+  <div class="col-md-1">
+    {{#link-to 'games.new' class="btn btn-primary"}}
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      New Game
+    {{/link-to}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>Home</th>
+        <th>Away</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      {{#each model as |game|}}
+        <tr>
+          <td>{{formattedDate game.date}}</td>
+          <td>{{game.homeTeam.name}}</td>
+          <td>{{game.awayTeam.name}}</td>
+          <td>
+            {{#if game.isFinished}}
+              {{#link-to 'games.stats' game class='btn btn-default btn-sm'}}Statistics{{/link-to}}
+            {{else }}
+              {{#link-to 'games.show' game class='btn btn-primary btn-sm'}}Process{{/link-to}}
+            {{/if}}
+          </td>
+        </tr>
+      {{else}}
+        <tr>
+          <td colspan="4"> No games (((</td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

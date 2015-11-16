@@ -1,0 +1,1 @@
+json.partial! 'player_stats', stats: @stats

@@ -1,1 +1,0 @@
-Time::DATE_FORMATS[:timespan] = ->(time) { time.strftime('%H:%M:%S') }
