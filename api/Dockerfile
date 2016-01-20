@@ -13,9 +13,9 @@ RUN apt-get update && apt-get install -y \
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT
 # commands.
-ENV APP_HOME /app
-RUN mkdir -p /$APP_HOME
-WORKDIR /$APP_HOME
+# ENV APP_HOME /app
+# RUN mkdir -p /$APP_HOME
+# WORKDIR /$APP_HOME
 
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies
@@ -26,11 +26,8 @@ WORKDIR /$APP_HOME
 RUN gem install bundler
 
 # Copy the main application.
-COPY . ./
-# VOLUME /app
-
-RUN bundle install
+# COPY . ./
 
 # Expose port 3000 to the Docker host, so we can access it
 # from the outside.
-# EXPOSE 3000
+EXPOSE 3000
