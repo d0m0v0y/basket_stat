@@ -6,12 +6,6 @@ module Api
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
       rescue_from Exception, with: :server_error
 
-      resource_description do
-        api_versions "1.0"
-        api_base_url '/api/v1'
-        formats [:json]
-      end
-
       private
 
       def server_error(error)

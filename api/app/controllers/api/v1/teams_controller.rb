@@ -2,24 +2,16 @@ module Api
   module V1
     class TeamsController < ApiController
 
-      api :GET, '/teams', 'Show list of teams'
       def index
         @teams = Team.all
         render json: @teams
       end
 
-      api :GET, '/teams/:id', 'Show Team info'
-      param :id, :number
       def show
         @team = Team.find(params[:id])
         render json: @team, status: :ok
       end
 
-      api :POST, '/teams', 'Create Team'
-      param :team, Hash do
-        param :name, String, :desc => 'Name of Team'
-        param :description, String, :desc => 'Short description of Team'
-      end
       def create
         @team = Team.new(team_params)
 
@@ -30,12 +22,6 @@ module Api
         end
       end
 
-      api :PATCH, '/teams/:id', 'Create Team'
-      param :id, :number
-      param :team, Hash  do
-        param :name, String, :desc => 'Name of Team'
-        param :description, String, :desc => 'Short description of Team'
-      end
       def update
         @team = Team.find(params[:id])
 
@@ -47,7 +33,6 @@ module Api
         end
       end
 
-      api :DELETE, '/teams/:id', 'Destroy an Team'
       def destroy
         @team = Team.find(params[:id])
         @team.destroy

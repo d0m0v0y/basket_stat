@@ -54,8 +54,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    apipie-rails (0.3.5)
-      json
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (6.0.3)
@@ -277,7 +275,6 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.9.3)
   activeadmin (= 1.0.0.pre1)
-  apipie-rails
   bootstrap-sass (~> 3.3.4)
   capybara (~> 2.4.3)
   capybara-webkit
