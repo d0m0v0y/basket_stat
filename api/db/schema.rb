@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426085918) do
+ActiveRecord::Schema.define(version: 20160125123935) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -45,6 +45,12 @@ ActiveRecord::Schema.define(version: 20150426085918) do
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "championships", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "game_events", force: :cascade do |t|
     t.integer  "game_id",    limit: 4
@@ -93,6 +99,40 @@ ActiveRecord::Schema.define(version: 20150426085918) do
     t.datetime "updated_at"
     t.integer  "position",   limit: 4
   end
+
+  create_table "season_schedules", force: :cascade do |t|
+    t.integer  "day",          limit: 4
+    t.integer  "season_id",    limit: 4
+    t.datetime "scheduled_at"
+    t.integer  "game_id",      limit: 4
+    t.integer  "home_team_id", limit: 4
+    t.integer  "away_team_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "season_schedules", ["game_id"], name: "index_season_schedules_on_game_id", using: :btree
+  add_index "season_schedules", ["scheduled_at"], name: "index_season_schedules_on_scheduled_at", using: :btree
+  add_index "season_schedules", ["season_id"], name: "index_season_schedules_on_season_id", using: :btree
+
+  create_table "season_teams", force: :cascade do |t|
+    t.integer  "season_id",  limit: 4
+    t.integer  "team_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "season_teams", ["season_id"], name: "index_season_teams_on_season_id", using: :btree
+  add_index "season_teams", ["team_id"], name: "index_season_teams_on_team_id", using: :btree
+
+  create_table "seasons", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.integer  "championship_id", limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "seasons", ["championship_id"], name: "index_seasons_on_championship_id", using: :btree
 
   create_table "statistics", force: :cascade do |t|
     t.integer "player_id",            limit: 4
@@ -145,4 +185,6 @@ ActiveRecord::Schema.define(version: 20150426085918) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "season_schedules", "games"
+  add_foreign_key "season_schedules", "seasons"
 end

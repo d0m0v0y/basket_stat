@@ -13054,3 +13054,251 @@ Completed 202 Accepted in 3ms (Views: 0.8ms | ActiveRecord: 0.5ms)
   [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `teams`[0m
   [1m[35m (0.7ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
   [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36m (4.9ms)[0m  [1mDROP DATABASE IF EXISTS `basket_stat_api_test`[0m
+  [1m[35m (0.5ms)[0m  CREATE DATABASE `basket_stat_api_test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (4.6ms)[0m  [1mCREATE TABLE `active_admin_comments` (`id` int(11) auto_increment PRIMARY KEY, `namespace` varchar(255), `body` text, `resource_id` varchar(255) NOT NULL, `resource_type` varchar(255) NOT NULL, `author_id` int(11), `author_type` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (5.2ms)[0m  CREATE  INDEX `index_active_admin_comments_on_author_type_and_author_id` USING btree ON `active_admin_comments` (`author_type`, `author_id`) 
+  [1m[36m (4.5ms)[0m  [1mCREATE  INDEX `index_active_admin_comments_on_namespace` USING btree ON `active_admin_comments` (`namespace`) [0m
+  [1m[35m (4.4ms)[0m  CREATE  INDEX `index_active_admin_comments_on_resource_type_and_resource_id` USING btree ON `active_admin_comments` (`resource_type`, `resource_id`) 
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE `admin_users` (`id` int(11) auto_increment PRIMARY KEY, `email` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime, `remember_created_at` datetime, `sign_in_count` int(11) DEFAULT 0 NOT NULL, `current_sign_in_at` datetime, `last_sign_in_at` datetime, `current_sign_in_ip` varchar(255), `last_sign_in_ip` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (5.1ms)[0m  CREATE UNIQUE INDEX `index_admin_users_on_email` USING btree ON `admin_users` (`email`) 
+  [1m[36m (5.5ms)[0m  [1mCREATE UNIQUE INDEX `index_admin_users_on_reset_password_token` USING btree ON `admin_users` (`reset_password_token`) [0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE `championships` (`id` int(11) auto_increment PRIMARY KEY, `name` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (1.6ms)[0m  [1mCREATE TABLE `game_events` (`id` int(11) auto_increment PRIMARY KEY, `game_id` int(11), `player_id` int(11), `event_code` int(11), `event_time` time, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (3.8ms)[0m  CREATE  INDEX `index_game_events_on_game_id` USING btree ON `game_events` (`game_id`) 
+  [1m[36m (3.7ms)[0m  [1mCREATE  INDEX `index_game_events_on_player_id` USING btree ON `game_events` (`player_id`) [0m
+  [1m[35m (1.8ms)[0m  CREATE TABLE `games` (`id` int(11) auto_increment PRIMARY KEY, `date` date, `home_team_id` int(11), `away_team_id` int(11), `created_at` datetime, `updated_at` datetime, `timer` int(11), `started_at` datetime, `finished_at` datetime) ENGINE=InnoDB
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE `player_times` (`id` int(11) auto_increment PRIMARY KEY, `game_id` int(11), `player_id` int(11), `in_time` time, `out_time` time, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (4.5ms)[0m  CREATE  INDEX `index_player_times_on_game_id` USING btree ON `player_times` (`game_id`) 
+  [1m[36m (3.8ms)[0m  [1mCREATE  INDEX `index_player_times_on_player_id` USING btree ON `player_times` (`player_id`) [0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE `players` (`id` int(11) auto_increment PRIMARY KEY, `team_id` int(11), `first_name` varchar(255), `last_name` varchar(255), `birth_date` date, `height` int(11), `weight` int(11), `number` int(11), `created_at` datetime, `updated_at` datetime, `position` int(11)) ENGINE=InnoDB
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE `season_schedules` (`id` int(11) auto_increment PRIMARY KEY, `day` int(11), `season_id` int(11), `scheduled_at` datetime, `game_id` int(11), `home_team_id` int(11), `away_team_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (4.1ms)[0m  CREATE  INDEX `index_season_schedules_on_game_id` USING btree ON `season_schedules` (`game_id`) 
+  [1m[36m (3.7ms)[0m  [1mCREATE  INDEX `index_season_schedules_on_scheduled_at` USING btree ON `season_schedules` (`scheduled_at`) [0m
+  [1m[35m (4.1ms)[0m  CREATE  INDEX `index_season_schedules_on_season_id` USING btree ON `season_schedules` (`season_id`) 
+  [1m[36m (1.5ms)[0m  [1mCREATE TABLE `season_teams` (`id` int(11) auto_increment PRIMARY KEY, `season_id` int(11), `team_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (4.7ms)[0m  CREATE  INDEX `index_season_teams_on_season_id` USING btree ON `season_teams` (`season_id`) 
+  [1m[36m (3.4ms)[0m  [1mCREATE  INDEX `index_season_teams_on_team_id` USING btree ON `season_teams` (`team_id`) [0m
+  [1m[35m (1.3ms)[0m  CREATE TABLE `seasons` (`id` int(11) auto_increment PRIMARY KEY, `name` varchar(255), `championship_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (4.7ms)[0m  [1mCREATE  INDEX `index_seasons_on_championship_id` USING btree ON `seasons` (`championship_id`) [0m
+  [1m[35m (1.8ms)[0m  CREATE TABLE `statistics` (`id` int(11) auto_increment PRIMARY KEY, `player_id` int(11), `game_id` int(11), `team_id` int(11), `played_time` time, `points` int(11), `free_throw_attempts` int(11), `free_throw_made` int(11), `free_throw_percent` decimal(10), `field_goal_attempts` int(11), `field_goal_made` int(11), `field_goal_percent` decimal(10), `three_point_attempts` int(11), `three_point_made` int(11), `three_point_percent` decimal(10), `assists` int(11), `blockshots` int(11), `offencive_rebounds` int(11), `deffencive_rebounds` int(11), `losses` int(11), `steels` int(11), `fouls` int(11), `fouls_commited` int(11), `efficiency` decimal(10)) ENGINE=InnoDB
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE `teams` (`id` int(11) auto_increment PRIMARY KEY, `name` varchar(255), `description` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (1.3ms)[0m  CREATE TABLE `users` (`id` int(11) auto_increment PRIMARY KEY, `email` varchar(255) DEFAULT '' NOT NULL, `encrypted_password` varchar(255) DEFAULT '' NOT NULL, `reset_password_token` varchar(255), `reset_password_sent_at` datetime, `remember_created_at` datetime, `sign_in_count` int(11) DEFAULT 0 NOT NULL, `current_sign_in_at` datetime, `last_sign_in_at` datetime, `current_sign_in_ip` varchar(255), `last_sign_in_ip` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB
+  [1m[36m (4.7ms)[0m  [1mCREATE UNIQUE INDEX `index_users_on_email` USING btree ON `users` (`email`) [0m
+  [1m[35m (4.8ms)[0m  CREATE UNIQUE INDEX `index_users_on_reset_password_token` USING btree ON `users` (`reset_password_token`) 
+  [1m[36m (2.5ms)[0m  [1mALTER TABLE `season_schedules` ADD CONSTRAINT `fk_rails_037dcd30ee`
+FOREIGN KEY (`game_id`)
+  REFERENCES `games` (`id`)
+[0m
+  [1m[35m (1.9ms)[0m  ALTER TABLE `season_schedules` ADD CONSTRAINT `fk_rails_4234ba0f3e`
+FOREIGN KEY (`season_id`)
+  REFERENCES `seasons` (`id`)
+
+  [1m[36m (2.1ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (4.0ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36m (0.2ms)[0m  [1mSELECT version FROM `schema_migrations`[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20160125123935')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20141026161336')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20141026161604')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20141026161652')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20141026161829')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20141026162054')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20141026162200')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20141102094023')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20141103070710')
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20141103070713')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20141116201941')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20141117190158')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20141117191818')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20141117201940')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20141119205611')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20141121122426')[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20141124073648')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20141124073822')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150408171750')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20150415180219')[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20150426085918')
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20160120141827')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20160120141932')
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20160120142020')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.9ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.6ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.7ms)[0m  SELECT DATABASE() as db
+  [1m[36m (0.6ms)[0m  [1mselect table_name from information_schema.views where table_schema = 'basket_stat_api_test'[0m
+  [1m[35m (1.9ms)[0m  TRUNCATE TABLE `active_admin_comments`;
+  [1m[36m (1.2ms)[0m  [1mTRUNCATE TABLE `admin_users`;[0m
+  [1m[35m (0.6ms)[0m  TRUNCATE TABLE `championships`;
+  [1m[36m (0.5ms)[0m  [1mTRUNCATE TABLE `game_events`;[0m
+  [1m[35m (0.4ms)[0m  TRUNCATE TABLE `games`;
+  [1m[36m (0.8ms)[0m  [1mTRUNCATE TABLE `player_times`;[0m
+  [1m[35m (0.5ms)[0m  TRUNCATE TABLE `players`;
+  [1m[36m (0.6ms)[0m  [1mTRUNCATE TABLE `season_schedules`;[0m
+  [1m[35m (0.6ms)[0m  TRUNCATE TABLE `season_teams`;
+  [1m[36m (0.7ms)[0m  [1mTRUNCATE TABLE `seasons`;[0m
+  [1m[35m (0.8ms)[0m  TRUNCATE TABLE `statistics`;
+  [1m[36m (0.4ms)[0m  [1mTRUNCATE TABLE `teams`;[0m
+  [1m[35m (0.5ms)[0m  TRUNCATE TABLE `users`;
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `seasons` (`name`, `created_at`, `updated_at`) VALUES ('Season Name', '2016-01-27 14:02:48', '2016-01-27 14:02:48')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_2
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_2[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `teams` (`name`, `description`, `created_at`, `updated_at`) VALUES ('Team #1', 'Facere et eaque aut ut eos corrupti perspiciatis quibusdam.', '2016-01-27 14:02:48', '2016-01-27 14:02:48')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_2[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSeasonTeam Exists (2.0ms)[0m  [1mSELECT  1 AS one FROM `season_teams` WHERE (`season_teams`.`team_id` = BINARY 1 AND `season_teams`.`season_id` = 1) LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `season_teams` (`season_id`, `team_id`, `created_at`, `updated_at`) VALUES (1, 1, '2016-01-27 14:02:48', '2016-01-27 14:02:48')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_2[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSeasonTeam Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `season_teams` WHERE (`season_teams`.`team_id` = BINARY 1 AND `season_teams`.`season_id` = 1) LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_2
+  [1m[36m (1.8ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.2ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  SELECT DATABASE() as db
+  [1m[36m (0.3ms)[0m  [1mselect table_name from information_schema.views where table_schema = 'basket_stat_api_test'[0m
+  [1m[35m (2.1ms)[0m  TRUNCATE TABLE `active_admin_comments`;
+  [1m[36m (0.8ms)[0m  [1mTRUNCATE TABLE `admin_users`;[0m
+  [1m[35m (0.8ms)[0m  TRUNCATE TABLE `championships`;
+  [1m[36m (1.0ms)[0m  [1mTRUNCATE TABLE `game_events`;[0m
+  [1m[35m (0.6ms)[0m  TRUNCATE TABLE `games`;
+  [1m[36m (1.1ms)[0m  [1mTRUNCATE TABLE `player_times`;[0m
+  [1m[35m (1.2ms)[0m  TRUNCATE TABLE `players`;
+  [1m[36m (0.7ms)[0m  [1mTRUNCATE TABLE `season_schedules`;[0m
+  [1m[35m (0.8ms)[0m  TRUNCATE TABLE `season_teams`;
+  [1m[36m (0.9ms)[0m  [1mTRUNCATE TABLE `seasons`;[0m
+  [1m[35m (0.7ms)[0m  TRUNCATE TABLE `statistics`;
+  [1m[36m (0.6ms)[0m  [1mTRUNCATE TABLE `teams`;[0m
+  [1m[35m (0.8ms)[0m  TRUNCATE TABLE `users`;
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `seasons` (`name`, `created_at`, `updated_at`) VALUES ('Season Name', '2016-01-27 14:08:53', '2016-01-27 14:08:53')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_2
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_2[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `teams` (`name`, `description`, `created_at`, `updated_at`) VALUES ('Team #1', 'Consequatur eius voluptas eligendi qui quibusdam repellendus.', '2016-01-27 14:08:53', '2016-01-27 14:08:53')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_2[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSeasonTeam Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `season_teams` WHERE (`season_teams`.`team_id` = BINARY 1 AND `season_teams`.`season_id` = 1) LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `season_teams` (`season_id`, `team_id`, `created_at`, `updated_at`) VALUES (1, 1, '2016-01-27 14:08:53', '2016-01-27 14:08:53')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_2[0m
+  [1m[35m (0.8ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.2ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  SELECT DATABASE() as db
+  [1m[36m (0.3ms)[0m  [1mselect table_name from information_schema.views where table_schema = 'basket_stat_api_test'[0m
+  [1m[35m (1.2ms)[0m  TRUNCATE TABLE `active_admin_comments`;
+  [1m[36m (1.0ms)[0m  [1mTRUNCATE TABLE `admin_users`;[0m
+  [1m[35m (0.6ms)[0m  TRUNCATE TABLE `championships`;
+  [1m[36m (0.7ms)[0m  [1mTRUNCATE TABLE `game_events`;[0m
+  [1m[35m (1.0ms)[0m  TRUNCATE TABLE `games`;
+  [1m[36m (0.6ms)[0m  [1mTRUNCATE TABLE `player_times`;[0m
+  [1m[35m (0.5ms)[0m  TRUNCATE TABLE `players`;
+  [1m[36m (0.4ms)[0m  [1mTRUNCATE TABLE `season_schedules`;[0m
+  [1m[35m (0.5ms)[0m  TRUNCATE TABLE `season_teams`;
+  [1m[36m (0.3ms)[0m  [1mTRUNCATE TABLE `seasons`;[0m
+  [1m[35m (0.7ms)[0m  TRUNCATE TABLE `statistics`;
+  [1m[36m (0.4ms)[0m  [1mTRUNCATE TABLE `teams`;[0m
+  [1m[35m (0.6ms)[0m  TRUNCATE TABLE `users`;
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `seasons` (`name`, `created_at`, `updated_at`) VALUES ('Season Name', '2016-01-27 14:09:18', '2016-01-27 14:09:18')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_2
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_2[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `teams` (`name`, `description`, `created_at`, `updated_at`) VALUES ('Team #1', 'Qui id hic aut alias.', '2016-01-27 14:09:18', '2016-01-27 14:09:18')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_2[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSeasonTeam Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM `season_teams` WHERE (`season_teams`.`team_id` = BINARY 1 AND `season_teams`.`season_id` = 1) LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `season_teams` (`season_id`, `team_id`, `created_at`, `updated_at`) VALUES (1, 1, '2016-01-27 14:09:18', '2016-01-27 14:09:18')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_2[0m
+  [1m[35mSeasonTeam Exists (0.2ms)[0m  SELECT  1 AS one FROM `season_teams` WHERE (`season_teams`.`team_id` = BINARY 1 AND `season_teams`.`season_id` = 1) LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.2ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  SELECT DATABASE() as db
+  [1m[36m (0.3ms)[0m  [1mselect table_name from information_schema.views where table_schema = 'basket_stat_api_test'[0m
+  [1m[35m (2.1ms)[0m  TRUNCATE TABLE `active_admin_comments`;
+  [1m[36m (1.2ms)[0m  [1mTRUNCATE TABLE `admin_users`;[0m
+  [1m[35m (0.5ms)[0m  TRUNCATE TABLE `championships`;
+  [1m[36m (0.8ms)[0m  [1mTRUNCATE TABLE `game_events`;[0m
+  [1m[35m (1.0ms)[0m  TRUNCATE TABLE `games`;
+  [1m[36m (0.5ms)[0m  [1mTRUNCATE TABLE `player_times`;[0m
+  [1m[35m (0.7ms)[0m  TRUNCATE TABLE `players`;
+  [1m[36m (0.7ms)[0m  [1mTRUNCATE TABLE `season_schedules`;[0m
+  [1m[35m (1.0ms)[0m  TRUNCATE TABLE `season_teams`;
+  [1m[36m (0.5ms)[0m  [1mTRUNCATE TABLE `seasons`;[0m
+  [1m[35m (0.4ms)[0m  TRUNCATE TABLE `statistics`;
+  [1m[36m (0.4ms)[0m  [1mTRUNCATE TABLE `teams`;[0m
+  [1m[35m (0.5ms)[0m  TRUNCATE TABLE `users`;
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `teams` (`name`, `description`, `created_at`, `updated_at`) VALUES ('Team #1', 'Perspiciatis inventore quasi rerum libero vel aut quas rem.', '2016-01-27 14:28:43', '2016-01-27 14:28:43')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_2
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_2[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `seasons` (`name`, `created_at`, `updated_at`) VALUES ('Season Name', '2016-01-27 14:28:43', '2016-01-27 14:28:43')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_2[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSeasonTeam Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM `season_teams` WHERE (`season_teams`.`team_id` = BINARY 1 AND `season_teams`.`season_id` = 1) LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `season_teams` (`season_id`, `team_id`, `created_at`, `updated_at`) VALUES (1, 1, '2016-01-27 14:28:43', '2016-01-27 14:28:43')
+  [1m[36mSeasonTeam Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM `season_teams` WHERE (`season_teams`.`team_id` = BINARY 1 AND `season_teams`.`season_id` = 1) LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_2
+  [1m[36m (0.7ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.2ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  SELECT DATABASE() as db
+  [1m[36m (0.3ms)[0m  [1mselect table_name from information_schema.views where table_schema = 'basket_stat_api_test'[0m
+  [1m[35m (1.3ms)[0m  TRUNCATE TABLE `active_admin_comments`;
+  [1m[36m (0.7ms)[0m  [1mTRUNCATE TABLE `admin_users`;[0m
+  [1m[35m (0.5ms)[0m  TRUNCATE TABLE `championships`;
+  [1m[36m (0.7ms)[0m  [1mTRUNCATE TABLE `game_events`;[0m
+  [1m[35m (1.1ms)[0m  TRUNCATE TABLE `games`;
+  [1m[36m (0.6ms)[0m  [1mTRUNCATE TABLE `player_times`;[0m
+  [1m[35m (1.3ms)[0m  TRUNCATE TABLE `players`;
+  [1m[36m (0.7ms)[0m  [1mTRUNCATE TABLE `season_schedules`;[0m
+  [1m[35m (1.1ms)[0m  TRUNCATE TABLE `season_teams`;
+  [1m[36m (0.6ms)[0m  [1mTRUNCATE TABLE `seasons`;[0m
+  [1m[35m (0.7ms)[0m  TRUNCATE TABLE `statistics`;
+  [1m[36m (0.9ms)[0m  [1mTRUNCATE TABLE `teams`;[0m
+  [1m[35m (1.0ms)[0m  TRUNCATE TABLE `users`;
+  [1m[36m (0.1ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSQL (1.8ms)[0m  [1mINSERT INTO `teams` (`name`, `description`, `created_at`, `updated_at`) VALUES ('Team #1', 'Delectus architecto magnam vero nesciunt quas ea molestiae cupiditate.', '2016-01-27 14:29:06', '2016-01-27 14:29:06')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_2
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_2[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `seasons` (`name`, `created_at`, `updated_at`) VALUES ('Season Name', '2016-01-27 14:29:06', '2016-01-27 14:29:06')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_2[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_2
+  [1m[36mSeasonTeam Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM `season_teams` WHERE (`season_teams`.`team_id` = BINARY 1 AND `season_teams`.`season_id` = 1) LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO `season_teams` (`season_id`, `team_id`, `created_at`, `updated_at`) VALUES (1, 1, '2016-01-27 14:29:07', '2016-01-27 14:29:07')
+  [1m[36mSeasonTeam Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM `season_teams` WHERE (`season_teams`.`team_id` = BINARY 1 AND `season_teams`.`season_id` = 1) LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_2
+  [1m[36m (0.8ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  ROLLBACK

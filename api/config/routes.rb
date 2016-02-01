@@ -10,6 +10,14 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
+      resources :championships do
+        resources :seasons do
+          get '/teams', to: 'season_teams#index'
+          post '/add_teams', to: 'season_teams#add_teams'
+          post '/remove_teams', to: 'season_teams#remove_teams'
+        end
+      end
+
       resources :teams
       resources :players
       resources :games do
