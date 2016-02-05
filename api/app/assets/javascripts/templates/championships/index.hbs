@@ -1,0 +1,36 @@
+<legend>Championships List</legend>
+<div class="row">
+  <div class="col-md-1">
+    {{#link-to 'championships.new' class="btn btn-primary"}}
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      New ChampionShip
+    {{/link-to}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Championship Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      {{#each model as |champ|}}
+        <tr>
+          <td>
+              {{#link-to 'championships.show' champ}}
+                  {{champ.name}}
+              {{/link-to}}
+          </td>
+        </tr>
+      {{else}}
+        <tr>
+          <td colspan="4"> No games (((</td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

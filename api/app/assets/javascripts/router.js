@@ -15,5 +15,13 @@ App.Router.map(function () {
     this.route('new');
     this.route('show', { path: ':game_id'});
     this.route('stats', {path: ':game_id/stats'});
-  })
+  });
+  this.resource('championships', function(){
+    this.route('new');
+    this.route('show', { path: ':championship_id'});
+  });
+  this.resource('seasons', function(){
+    this.route('new');
+    this.route('show', { path: ':season_id'});
+  });
 });
