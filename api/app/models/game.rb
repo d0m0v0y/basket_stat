@@ -14,7 +14,21 @@ class Game < ActiveRecord::Base
       # save players stats to db
       home_team.players.each { |player| player.save_stats(id) }
       away_team.players.each { |player| player.save_stats(id) }
-      self.update_attribute :finished_at, DateTime.now
+      self.update_attributes(
+        finished_at: DateTime.now,
+        home_team_scores: calculate_scores(home_team),
+        away_team_scores: calculate_scores(away_team),
+      )
     end
+  end
+
+  def scores
+    home_team_scores = calculate_scores home_team
+    away_team_scores = calculate_scores away_team
+    [home_team_scores, away_team_scores]
+  end
+
+  def calculate_scores(team)
+    team.players.inject(0) { |sum, player| sum + player.points(id) }
   end
 end

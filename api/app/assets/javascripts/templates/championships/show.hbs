@@ -1,0 +1,33 @@
+<legend>Seasons of: {{model.name}}</legend>
+<div class="row">
+    <div class="col-md-1">
+        {{#link-to 'seasons.new' class="btn btn-primary"}}
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            New Season
+        {{/link-to}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each model.seasons as |season|}}
+                <tr>
+                    <td>{{season.id}}</td>
+                    <td>{{season.name}}</td>
+                </tr>
+            {{else}}
+                <tr>
+                    <td colspan="4"> No seasons (((</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

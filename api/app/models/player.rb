@@ -17,15 +17,16 @@ class Player < ActiveRecord::Base
 
   # scope :events_by_code, ->(game_id, event_code) { where(game_id: game_id, event_code: event_code)}
 
-  # delegate :events_by_code, to: :game_events
+  delegate :events_by_code, to: :game_events
 
   def full_name
     "#{first_name} #{last_name}"
   end
 
-  # def events_by_code(game_id, event_code)
-  #   game_events.where(game_id: game_id, event_code: event_code).count
-  # end
+  def count_events_by_code(game_id, event_code)
+    # game_events.where(game_id: game_id, event_code: event_code).count
+    events_by_code(game_id, event_code).count
+  end
 
   def played_time(game_id)
     player_times
@@ -36,15 +37,18 @@ class Player < ActiveRecord::Base
   end
 
   def points(game_id)
-     total_points = game_events.events_by_code(game_id, GameEvent.event_codes[:ftm]).count +
-         2 * game_events.events_by_code(game_id, GameEvent.event_codes[:fgm]).count +
-         3 * game_events.events_by_code(game_id, GameEvent.event_codes[:fgm3]).count
+     total_points = events_by_code(game_id, :ftm).count +
+         2 * events_by_code(game_id, :fgm).count +
+         3 * events_by_code(game_id, :fgm3).count
     total_points
   end
 
   def percent(game_id, event_code_attempt, event_code_made)
-    attempts_count = events_by_code(game_id, event_code_attempt)
-    made_count = events_by_code(game_id, event_code_made)
+    attempts_count = count_events_by_code(game_id, event_code_attempt)
+    puts("attempts_count: #{ event_code_attempt}")
+    made_count = count_events_by_code(game_id, event_code_made)
+    puts("made_count: #{made_count.inspect}")
+    return 0 if (attempts_count + made_count) == 0
     (made_count.to_f / (attempts_count + made_count)) * 100.0
   end
 
@@ -57,39 +61,46 @@ class Player < ActiveRecord::Base
     {
       # played_time: played_time(game_id),
       points: points(game_id),
-      free_throw_attempts: events_by_code(game_id, GameEvent.event_codes[:fta]),
-      free_throw_made: events_by_code(game_id, GameEvent.event_codes[:ftm]),
-      free_throw_percent: percent(game_id, GameEvent.event_codes[:fta], GameEvent.event_codes[:ftm]),
-      field_goal_attempts: events_by_code(game_id, GameEvent.event_codes[:fga]),
-      field_goal_made: events_by_code(game_id, GameEvent.event_codes[:fgm]),
-      field_goal_percent: percent(game_id, GameEvent.event_codes[:fga], GameEvent.event_codes[:fgm]),
-      three_point_attempts: events_by_code(game_id, GameEvent.event_codes[:fga3]),
-      three_point_made: events_by_code(game_id, GameEvent.event_codes[:fgm3]),
-      three_point_percent: percent(game_id, GameEvent.event_codes[:fga3], GameEvent.event_codes[:fgm3]),
-      assists: events_by_code(game_id, GameEvent.event_codes[:ast]),
-      blockshots: events_by_code(game_id, GameEvent.event_codes[:blk]),
-      offencive_rebounds: events_by_code(game_id, GameEvent.event_codes[:orb]),
-      deffencive_rebounds: events_by_code(game_id, GameEvent.event_codes[:drb]),
-      losses: events_by_code(game_id, GameEvent.event_codes[:los]),
-      steels: events_by_code(game_id, GameEvent.event_codes[:stl]),
-      fouls: events_by_code(game_id, GameEvent.event_codes[:pf]),
-      fouls_commited: events_by_code(game_id, GameEvent.event_codes[:pfc]),
+      free_throw_attempts: count_events_by_code(game_id, :fta),
+      free_throw_made: count_events_by_code(game_id, :ftm),
+      free_throw_percent: percent(game_id, :fta, :ftm),
+      field_goal_attempts: count_events_by_code(game_id, :fga),
+      field_goal_made: count_events_by_code(game_id, :fgm),
+      field_goal_percent: percent(game_id, :fga, :fgm),
+      three_point_attempts: count_events_by_code(game_id, :fga3),
+      three_point_made: count_events_by_code(game_id, :fgm3),
+      three_point_percent: percent(game_id, :fga3, :fgm3),
+      assists: count_events_by_code(game_id, :ast),
+      blockshots: count_events_by_code(game_id, :blk),
+      offencive_rebounds: count_events_by_code(game_id, :orb),
+      deffencive_rebounds: count_events_by_code(game_id, :drb),
+      losses: count_events_by_code(game_id, :los),
+      steels: count_events_by_code(game_id, :stl),
+      fouls: count_events_by_code(game_id, :pf),
+      fouls_commited: count_events_by_code(game_id, :pfc),
       efficiency: efficiency(game_id)
     }
   end
 
   def efficiency(game_id)
-    eff = (points(game_id) + events_by_code(game_id, GameEvent.event_codes[:ast]) +
-        1.4 * events_by_code(game_id, GameEvent.event_codes[:stl]) +
-        1.2 * events_by_code(game_id, GameEvent.event_codes[:drb]) +
-        1.4 * events_by_code(game_id, GameEvent.event_codes[:orb]) +
-        0.5 * events_by_code(game_id, GameEvent.event_codes[:pfc]) +
-        1.2 * events_by_code(game_id, GameEvent.event_codes[:blk]) -
-        events_by_code(game_id, GameEvent.event_codes[:fga]) -
-        1.5 * events_by_code(game_id, GameEvent.event_codes[:fga3]) -
-        0.8 * events_by_code(game_id, GameEvent.event_codes[:fta]) -
-        1.4 * events_by_code(game_id, GameEvent.event_codes[:los]) -
-        events_by_code(game_id, GameEvent.event_codes[:pf]) ) #/ (played_time(game_id)/60.0)
+    efficiency_table = [
+        { event: :ast, multiplier: 1.0 },
+        { event: :stl, multiplier: 1.4 },
+        { event: :drb, multiplier: 1.2 },
+        { event: :orb, multiplier: 1.4 },
+        { event: :pfc, multiplier: 0.5 },
+        { event: :blk, multiplier: 1.2 },
+        { event: :fga, multiplier: -1.0 },
+        { event: :fga3, multiplier: -1.5 },
+        { event: :fta, multiplier: -0.8 },
+        { event: :los, multiplier: -1.4 },
+        { event: :pf, multiplier: -1.0 },
+    ]
+    eff = (points(game_id) +
+        efficiency_table.inject(0) do |sum, row|
+          sum + row[:multiplier] * count_events_by_code(game_id, row[:event])
+        end)
+        #/ (played_time(game_id)/60.0)
     eff.round(2)
   end
 

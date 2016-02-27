@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
+  default_url_options :host => "localhost:3000"
+
   # devise_for :users
 
   root to: 'stats#index'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125123935) do
+ActiveRecord::Schema.define(version: 20160226121219) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -66,13 +66,15 @@ ActiveRecord::Schema.define(version: 20160125123935) do
 
   create_table "games", force: :cascade do |t|
     t.date     "date"
-    t.integer  "home_team_id", limit: 4
-    t.integer  "away_team_id", limit: 4
+    t.integer  "home_team_id",     limit: 4
+    t.integer  "away_team_id",     limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "timer",        limit: 4
+    t.integer  "timer",            limit: 4
     t.datetime "started_at"
     t.datetime "finished_at"
+    t.integer  "home_team_scores", limit: 4
+    t.integer  "away_team_scores", limit: 4
   end
 
   create_table "player_times", force: :cascade do |t|

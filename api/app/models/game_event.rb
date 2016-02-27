@@ -22,5 +22,9 @@ class GameEvent < ActiveRecord::Base
   validates :event_time, :game_id, :player_id, presence: true
   validates :event_code, inclusion: {in: GameEvent.event_codes}
 
-  scope :events_by_code, ->(game_id, event_code) { where(game_id: game_id, event_code: event_code) }
+  scope :events_by_code, ->(game_id, event_code) { where(game_id: game_id, event_code: GameEvent.event_codes[event_code]) }
+
+  def count_events_by_code(game_id, event_code)
+    self.events_by_code(game_id, event_code).count
+  end
 end
