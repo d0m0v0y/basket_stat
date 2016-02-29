@@ -1,17 +1,17 @@
 App.GamesStatsController = Ember.Controller.extend({
   homeTeamStats: function(){
-    var team = this.get('model.homeTeam');
-    var stats = this.get('model.statistics');
-    return stats.filter(function(item){
-      return item.get('team') == team;
-    })
+    return this.getStats('model.homeTeam');
   }.property('model'),
 
   awayTeamStats: function () {
-    var team = this.get('model.awayTeam');
+    return this.getStats('model.awayTeam');
+  }.property('model'),
+
+  getStats: function(dataSource) {
+    var team = this.get(dataSource);
     var stats = this.get('model.statistics');
     return stats.filter(function (item) {
-      return item.get('team') == team;
+      return item.get('team.id') == team.get('id');
     })
-  }.property('model')
+  }
 });

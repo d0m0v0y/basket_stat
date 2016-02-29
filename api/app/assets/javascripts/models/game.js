@@ -1,6 +1,6 @@
 App.Game = DS.Model.extend({
-  homeTeam: DS.belongsTo('team'),
-  awayTeam: DS.belongsTo('team'),
+  homeTeam: DS.belongsTo('team', { async: true }),
+  awayTeam: DS.belongsTo('team', { async: true }),
 
   date: DS.attr('date'),
   startedAt: DS.attr('date'),

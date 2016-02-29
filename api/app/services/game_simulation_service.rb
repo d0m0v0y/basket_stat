@@ -20,8 +20,8 @@ class GameSimulationService
       possession_time = get_possession_time
 
       if try(:turn_over)
-        fix_event(:stl, defence_team.players.sample)
-        fix_event(:los, offence_team.players.sample)
+        fix_event(:stl, defence_team.players.sample, current_time(possession_time))
+        fix_event(:los, offence_team.players.sample, current_time(possession_time))
         end_attack possession_time
         next
       end
@@ -32,27 +32,27 @@ class GameSimulationService
         if shot_success?(shot_points)
           event = shot_points == 2 ? :fgm : :fgm3
           shot_player = offence_team.players.sample
-          fix_event(event, shot_player)
-          fix_event(:ast, assist_player(shot_player)) if try(:assist)
+          fix_event(event, shot_player, current_time(possession_time))
+          fix_event(:ast, assist_player(shot_player), current_time(possession_time)) if try(:assist)
           end_attack(possession_time)
           next
         end
 
         if try(:blockshot)
-          fix_event(:blk, defence_team.players.sample)
+          fix_event(:blk, defence_team.players.sample, current_time(possession_time))
           end_attack(possession_time)
           next
         end
 
         if try(:foul)
-          player = fix_foul
+          player = fix_foul(possession_time)
           points_on_foul = 0
           shot_points.times do
             if try(:free_shot)
               points_on_foul +=1
-              fix_event(:ftm, player)
+              fix_event(:ftm, player, current_time(possession_time))
             else
-              fix_event(:fta, player)
+              fix_event(:fta, player, current_time(possession_time))
             end
           end
 
@@ -64,11 +64,11 @@ class GameSimulationService
       end
 
       if try(:offensive_rebound)
-        fix_event(:orb, offence_team.players.sample)
+        fix_event(:orb, offence_team.players.sample, current_time(possession_time))
         fix_played_time(possession_time)
         next
       else
-        fix_event(:drb, defence_team.players.sample)
+        fix_event(:drb, defence_team.players.sample, current_time(possession_time))
       end
 
       end_attack(possession_time)
@@ -82,19 +82,20 @@ class GameSimulationService
     change_ball_possession
   end
 
-  def fix_event(event, player)
-    Rails.logger.info("GAME EVENT: #{event} for #{player.full_name} ##{player.number} from team: #{player.team.name}")
-    GameEvent.create(game: game, player: player, event_code: event, event_time: Time.current)
+  def fix_event(event, player, time)
+    Rails.logger.info("GAME EVENT: #{event} for #{player.full_name} ##{player.number}
+     from team: #{player.team.name} at #{time}")
+    GameEvent.create(game: game, player: player, event_code: event, event_time: time)
   end
 
   def shot_success?(shot_points)
     shot_points == 2 ? probability(rand(60..70)) : probability(rand(20..40))
   end
 
-  def fix_foul
-    fix_event(:pf, defence_team.players.sample)
+  def fix_foul(possession_time)
+    fix_event(:pf, defence_team.players.sample, current_time(possession_time))
     foul_player = offence_team.players.sample
-    fix_event(:pfc, foul_player)
+    fix_event(:pfc, foul_player, current_time(possession_time))
     foul_player
   end
 
@@ -149,4 +150,12 @@ class GameSimulationService
     [home_team, away_team].detect {|a| a != ball_possession}
   end
 
+  def played_time
+    (GAME_DURATION - time_to_play).seconds
+  end
+
+  def current_time(possession_time)
+    t = (played_time + possession_time).seconds
+    Time.at(t).utc.strftime("%H:%M:%S")
+  end
 end

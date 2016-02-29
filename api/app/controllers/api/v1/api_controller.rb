@@ -4,7 +4,7 @@ module Api
       #before_filter :authenticate_user_from_token!
       respond_to :json
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-      rescue_from Exception, with: :server_error
+      # rescue_from Exception, with: :server_error
 
       private
 
