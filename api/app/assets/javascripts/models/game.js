@@ -5,6 +5,8 @@ App.Game = DS.Model.extend({
   date: DS.attr('date'),
   startedAt: DS.attr('date'),
   finishedAt: DS.attr('date'),
+  homeTeamScores: DS.attr(),
+  awayTeamScores: DS.attr(),
 
   statistics: DS.hasMany('statistic'),
 
@@ -31,8 +33,22 @@ App.Game = DS.Model.extend({
 
   finish: function () {
     this.customAction('finish');
-  }.property('id')
+  }.property('id'),
 
+  // Stats section
+  getStats: function(dataSource) {
+    var team = this.get(dataSource);
+    var stats = this.get('statistics');
+    return stats.filter(function (item) {
+      return item.get('team.id') == team.get('id');
+    })
+  },
 
+  homeTeamStats: Ember.computed(function(){
+    return this.getStats('homeTeam');
+  }),
 
+  awayTeamStats: Ember.computed(function () {
+    return this.getStats('awayTeam');
+  })
 });

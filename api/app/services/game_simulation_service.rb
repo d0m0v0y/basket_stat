@@ -89,7 +89,7 @@ class GameSimulationService
   end
 
   def shot_success?(shot_points)
-    shot_points == 2 ? probability(rand(60..70)) : probability(rand(20..40))
+    shot_points == 2 ? probability(rand(40..70)) : probability(rand(10..40))
   end
 
   def fix_foul(possession_time)
@@ -131,6 +131,8 @@ class GameSimulationService
       probability(rand(60..90))
     when :assist
       probability(rand(30..40))
+    when :offensive_rebound
+      probability(10)
     end
   end
 

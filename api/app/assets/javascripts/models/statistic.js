@@ -22,4 +22,35 @@ App.Statistic = DS.Model.extend({
   foulsCommited: DS.attr(),
   efficiency: DS.attr(),
 
+  totalRebounds: Ember.computed(
+    'offenciveRebounds',
+    'deffenciveRebounds',
+    function() {
+      return this.get('offenciveRebounds') + this.get('deffenciveRebounds')
+    }
+  ),
+
+  totalFreeThrows: Ember.computed(
+    'freeThrowAttempts',
+    'freeThrowMade',
+    function() {
+      return this.get('freeThrowAttempts') + this.get('freeThrowMade');
+    }
+  ),
+
+  totalFieldGoals: Ember.computed(
+    'fieldGoalAttempts',
+    'fieldGoalMade',
+    function() {
+      return this.get('fieldGoalAttempts') + this.get('fieldGoalMade');
+    }
+  ),
+
+  totalThreePoints: Ember.computed(
+    'threePointAttempts',
+    'threePointMade',
+    function() {
+      return this.get('threePointAttempts') + this.get('threePointMade');
+    }
+  ),
 });

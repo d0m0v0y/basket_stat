@@ -769,7 +769,7 @@
     </object>
     <object type="LMREQUEST" id="z171">
         <attribute name="uuid" type="string">2ACDCF9F-5F4A-4E7B-BB9F-09B3AF1B2219</attribute>
-        <attribute name="url" type="string">[{"data":{"environmentVariable":"4A7A685F-F970-4122-B10D-ECB13186B38D"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/statistics?game_id=1"]</attribute>
+        <attribute name="url" type="string">[{"data":{"environmentVariable":"4A7A685F-F970-4122-B10D-ECB13186B38D"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/statistics?game_id=4"]</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>

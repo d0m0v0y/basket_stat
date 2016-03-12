@@ -1,9 +1,30 @@
-<legend>Game statistic: {{model.homeTeam.name}} - {{model.awayTeam.name}} ({{formattedDate model.date}} )</legend>
+<div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Stats</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Compare Teams</a></li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+    </ul>
 
-<h3>Home: {{model.homeTeam.name}}</h3>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+            <legend>Game statistic: {{model.homeTeam.name}} - {{model.awayTeam.name}} ({{formattedDate model.date}} )</legend>
 
-{{team-statistic stats=homeTeamStats}}
+            <h3>Home: {{model.homeTeam.name}}</h3>
+            {{team-statistic stats=model.homeTeamStats}}
 
-<h3>Away: {{model.awayTeam.name}}</h3>
+            <h3>Away: {{model.awayTeam.name}}</h3>
+            {{team-statistic stats=model.awayTeamStats}}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="profile">
+            <legend>Compare Teams</legend>
+        </div>
 
-{{team-statistic stats=awayTeamStats}}
+        <div role="tabpanel" class="tab-pane" id="messages">MEssage</div>
+        <div role="tabpanel" class="tab-pane" id="settings">settings</div>
+    </div>
+</div>
+
+
