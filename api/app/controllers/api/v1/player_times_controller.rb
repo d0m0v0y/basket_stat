@@ -1,7 +1,6 @@
 module Api
   module V1
     class PlayerTimesController < ApiController
-
       def show
         @player_time = PlayerTime.find(params[:id])
         respond_with @player_time

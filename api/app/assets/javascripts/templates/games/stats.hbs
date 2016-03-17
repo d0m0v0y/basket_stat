@@ -1,4 +1,5 @@
 <div>
+    <legend>Game statistic: {{model.homeTeam.name}} - {{model.awayTeam.name}} ({{formattedDate model.date}} )</legend>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Stats</a></li>
@@ -10,12 +11,10 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
-            <legend>Game statistic: {{model.homeTeam.name}} - {{model.awayTeam.name}} ({{formattedDate model.date}} )</legend>
-
-            <h3>Home: {{model.homeTeam.name}}</h3>
+            <h4>Home: {{model.homeTeam.name}}</h4>
             {{team-statistic stats=model.homeTeamStats}}
 
-            <h3>Away: {{model.awayTeam.name}}</h3>
+            <h4>Away: {{model.awayTeam.name}}</h4>
             {{team-statistic stats=model.awayTeamStats}}
         </div>
         <div role="tabpanel" class="tab-pane" id="profile">

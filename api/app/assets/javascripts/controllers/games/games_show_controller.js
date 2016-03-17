@@ -91,6 +91,27 @@ App.GamesShowController = Ember.Controller.extend({
 
   actions: {
     gameStarted: function(){
+      //save lineups
+      var game = this.get('model');
+      var self = this;
+      this.get('inGamePlayers').forEach(function(obj){
+        var player_away = obj.get('away');
+        //Ember.Logger.info("game:", game.get('id'), "team: ", player_away.get('team.id'), "player:", player_away.get('id'));
+        var lineup = self.store.createRecord('lineup', {
+          game: game,
+          team: player_away.get('team'),
+          player: player_away
+        });
+        lineup.save();
+        var player_home = obj.get('home');
+        //Ember.Logger.info("game:", game.get('id'), "team: ", player_home.get('team.id'), "player:", player_home.get('id'))
+        lineup = self.store.createRecord('lineup', {
+          game: game,
+          team: player_home.get('team'),
+          player: player_home
+        });
+        lineup.save();
+      });
       // starting game
       this.get('content.start');
     },

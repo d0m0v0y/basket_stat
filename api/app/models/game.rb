@@ -2,6 +2,7 @@ class Game < ActiveRecord::Base
   belongs_to :home_team, class_name: 'Team'
   belongs_to :away_team, class_name: 'Team'
   has_many :statistics
+  has_many :lineups
 
   validates :away_team_id, :home_team_id, :date, presence: true
 
@@ -22,6 +23,13 @@ class Game < ActiveRecord::Base
     end
   end
 
+  # used only in GameSimulation
+  def define_lineups(players)
+    players.each do |player|
+      Lineup.create game: self, player: player, team: player.team
+    end
+  end
+
   def scores
     home_team_scores = calculate_scores home_team
     away_team_scores = calculate_scores away_team
@@ -30,5 +38,9 @@ class Game < ActiveRecord::Base
 
   def calculate_scores(team)
     team.players.inject(0) { |sum, player| sum + player.points(id) }
+  end
+
+  def lineup_exist?(team)
+    lineups.any? { |lineup| lineup.team_id == team.id }
   end
 end

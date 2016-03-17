@@ -11,10 +11,10 @@ class GameSimulationService
   end
 
   def simulate
+    define_lineups
     game.start
 
     first_possession
-
     while time_to_play > 0
       # Rails.logger.info("time_to_play: #{time_to_play}")
       possession_time = get_possession_time
@@ -29,14 +29,18 @@ class GameSimulationService
       # do attack with probability 95%
       if try(:shot)
         shot_points = [2,3].sample
+        shot_player = offence_team.players.sample
         if shot_success?(shot_points)
           event = shot_points == 2 ? :fgm : :fgm3
-          shot_player = offence_team.players.sample
           fix_event(event, shot_player, current_time(possession_time))
           fix_event(:ast, assist_player(shot_player), current_time(possession_time)) if try(:assist)
           end_attack(possession_time)
           next
+        else
+          event = shot_points == 2 ? :fga : :fga3
+          fix_event(event, shot_player, current_time(possession_time))
         end
+
 
         if try(:blockshot)
           fix_event(:blk, defence_team.players.sample, current_time(possession_time))
@@ -89,7 +93,9 @@ class GameSimulationService
   end
 
   def shot_success?(shot_points)
-    shot_points == 2 ? probability(rand(40..70)) : probability(rand(10..40))
+    # shot_points == 2 ? probability(rand(40..70)) : probability(rand(10..40))
+    return probability(rand(30..60)) if shot_points == 2
+    probability(rand(10..30))
   end
 
   def fix_foul(possession_time)
@@ -124,11 +130,11 @@ class GameSimulationService
     when :blockshot
       probability(5)
     when :shot
-      probability(95)
+      probability(80)
     when :foul
       probability(20)
     when :free_shot
-      probability(rand(60..90))
+      probability(rand(50..90))
     when :assist
       probability(rand(30..40))
     when :offensive_rebound
@@ -137,7 +143,7 @@ class GameSimulationService
   end
 
   def probability(percentage)
-    rand(0..100) <= percentage
+    rand(1..100) <= percentage
   end
 
   def fix_played_time(time)
@@ -159,5 +165,10 @@ class GameSimulationService
   def current_time(possession_time)
     t = (played_time + possession_time).seconds
     Time.at(t).utc.strftime("%H:%M:%S")
+  end
+
+  def define_lineups
+    lineup_players = home_team.players.sample(5) + away_team.players.sample(5)
+    game.define_lineups lineup_players
   end
 end

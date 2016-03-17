@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226121219) do
+ActiveRecord::Schema.define(version: 20160312100243) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 20160226121219) do
     t.integer  "home_team_scores", limit: 4
     t.integer  "away_team_scores", limit: 4
   end
+
+  create_table "lineups", force: :cascade do |t|
+    t.integer "game_id",   limit: 4
+    t.integer "team_id",   limit: 4
+    t.integer "player_id", limit: 4
+  end
+
+  add_index "lineups", ["game_id"], name: "index_lineups_on_game_id", using: :btree
 
   create_table "player_times", force: :cascade do |t|
     t.integer  "game_id",    limit: 4
@@ -160,6 +168,7 @@ ActiveRecord::Schema.define(version: 20160226121219) do
     t.integer "fouls",                limit: 4
     t.integer "fouls_commited",       limit: 4
     t.decimal "efficiency",                     precision: 10
+    t.boolean "lineup",                                        default: false
   end
 
   create_table "teams", force: :cascade do |t|

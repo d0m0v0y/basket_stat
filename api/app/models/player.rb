@@ -78,7 +78,8 @@ class Player < ActiveRecord::Base
       steels: count_events_by_code(game_id, :stl),
       fouls: count_events_by_code(game_id, :pf),
       fouls_commited: count_events_by_code(game_id, :pfc),
-      efficiency: efficiency(game_id)
+      efficiency: efficiency(game_id),
+      lineup: lineup?(game_id)
     }
   end
 
@@ -102,6 +103,10 @@ class Player < ActiveRecord::Base
         end)
         #/ (played_time(game_id)/60.0)
     eff.round(2)
+  end
+
+  def lineup?(game_id)
+    Lineup.where(game_id: game_id, team_id: team.id, player_id: id).any?
   end
 
 end

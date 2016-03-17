@@ -34,6 +34,10 @@ Rails.application.routes.draw do
       get '/statistics', to: 'statistics#show'
       # get '/statistics/:game_id/player/:player_id' => 'statistics#player'
       # get '/statistics/:game_id/team/:team_id' => 'statistics#team'
+
+      resources :lineups
+      # post '/lineups', to: 'lineups#create'
+      # get '/lineups', to: 'lineups#show'
     end
   end
 

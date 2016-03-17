@@ -4,7 +4,8 @@ module Api
 
       def index
         @players = Player.all
-        @players = @players.where(team_id: params.permit(:team_id)) if params[:team_id].present?
+        team_id = params.permit(:team_id)[:team_id]
+        @players = @players.where(team_id: team_id) if team_id.present?
         render json: @players
       end
 
