@@ -30,15 +30,19 @@ class GameSimulationService
       if try(:shot)
         shot_points = [2,3].sample
         shot_player = offence_team.players.sample
+        fix_event(
+          shot_points == 2 ? :fga : :fga3,
+          shot_player,
+          current_time(possession_time)
+        )
+
         if shot_success?(shot_points)
-          event = shot_points == 2 ? :fgm : :fgm3
-          fix_event(event, shot_player, current_time(possession_time))
+          fix_event(shot_points == 2 ? :fgm : :fgm3,
+                    shot_player,
+                    current_time(possession_time))
           fix_event(:ast, assist_player(shot_player), current_time(possession_time)) if try(:assist)
           end_attack(possession_time)
           next
-        else
-          event = shot_points == 2 ? :fga : :fga3
-          fix_event(event, shot_player, current_time(possession_time))
         end
 
 
@@ -52,11 +56,10 @@ class GameSimulationService
           player = fix_foul(possession_time)
           points_on_foul = 0
           shot_points.times do
+            fix_event(:fta, player, current_time(possession_time))
             if try(:free_shot)
               points_on_foul +=1
               fix_event(:ftm, player, current_time(possession_time))
-            else
-              fix_event(:fta, player, current_time(possession_time))
             end
           end
 
@@ -65,14 +68,14 @@ class GameSimulationService
             next
           end
         end
-      end
 
-      if try(:offensive_rebound)
-        fix_event(:orb, offence_team.players.sample, current_time(possession_time))
-        fix_played_time(possession_time)
-        next
-      else
-        fix_event(:drb, defence_team.players.sample, current_time(possession_time))
+        if try(:offensive_rebound)
+          fix_event(:orb, offence_team.players.sample, current_time(possession_time))
+          fix_played_time(possession_time)
+          next
+        else
+          fix_event(:drb, defence_team.players.sample, current_time(possession_time))
+        end
       end
 
       end_attack(possession_time)
@@ -130,7 +133,7 @@ class GameSimulationService
     when :blockshot
       probability(5)
     when :shot
-      probability(80)
+      probability(90)
     when :foul
       probability(20)
     when :free_shot

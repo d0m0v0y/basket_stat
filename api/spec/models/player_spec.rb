@@ -54,10 +54,10 @@ describe Player do
 
     [  #attempt        count             made        count          percent
       { attempt: :fta, attempt_count: 10, made: :ftm, made_count: 0, percent: 0.0 },
-      { attempt: :fta, attempt_count: 0, made: :ftm, made_count: 4, percent: 100.0 },
-      { attempt: :fta, attempt_count: 4, made: :ftm, made_count: 4, percent: 50.0 },
-      { attempt: :fga, attempt_count: 4, made: :fgm, made_count: 4, percent: 50.0 },
-      { attempt: :fga3, attempt_count: 16, made: :fgm3, made_count: 4, percent: 20.0 }
+      { attempt: :fta, attempt_count: 4, made: :ftm, made_count: 4, percent: 100.0 },
+      { attempt: :fta, attempt_count: 8, made: :ftm, made_count: 4, percent: 50.0 },
+      { attempt: :fga, attempt_count: 10, made: :fgm, made_count: 3, percent: 30.0 },
+      { attempt: :fga3, attempt_count: 20, made: :fgm3, made_count: 4, percent: 20.0 }
     ].each do |row|
       it "returns #{row[:percent]} for #{row[:made]}" do
         row[:attempt_count].times do

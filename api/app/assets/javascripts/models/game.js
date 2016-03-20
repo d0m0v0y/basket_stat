@@ -44,11 +44,16 @@ App.Game = DS.Model.extend({
     })
   },
 
-  homeTeamStats: Ember.computed(function(){
+  homeTeamStatsUnordered: Ember.computed(function(){
     return this.getStats('homeTeam');
   }),
-
-  awayTeamStats: Ember.computed(function () {
+  awayTeamStatsUnordered: Ember.computed(function () {
     return this.getStats('awayTeam');
-  })
+  }),
+
+  lineupOrder: ['lineup:desc'],
+  homeTeamStats: Ember.computed.sort('homeTeamStatsUnordered', 'lineupOrder'),
+  awayTeamStats: Ember.computed.sort('awayTeamStatsUnordered', 'lineupOrder'),
+
+
 });

@@ -21,6 +21,7 @@ App.Statistic = DS.Model.extend({
   fouls: DS.attr(),
   foulsCommited: DS.attr(),
   efficiency: DS.attr(),
+  lineup: DS.attr(),
 
   totalRebounds: Ember.computed(
     'offenciveRebounds',
@@ -30,27 +31,27 @@ App.Statistic = DS.Model.extend({
     }
   ),
 
-  totalFreeThrows: Ember.computed(
-    'freeThrowAttempts',
-    'freeThrowMade',
-    function() {
-      return this.get('freeThrowAttempts') + this.get('freeThrowMade');
-    }
-  ),
-
-  totalFieldGoals: Ember.computed(
-    'fieldGoalAttempts',
-    'fieldGoalMade',
-    function() {
-      return this.get('fieldGoalAttempts') + this.get('fieldGoalMade');
-    }
-  ),
-
-  totalThreePoints: Ember.computed(
-    'threePointAttempts',
-    'threePointMade',
-    function() {
-      return this.get('threePointAttempts') + this.get('threePointMade');
-    }
-  ),
+  //totalFreeThrows: Ember.computed(
+  //  'freeThrowAttempts',
+  //  'freeThrowMade',
+  //  function() {
+  //    return this.get('freeThrowAttempts') + this.get('freeThrowMade');
+  //  }
+  //),
+  //
+  //totalFieldGoals: Ember.computed(
+  //  'fieldGoalAttempts',
+  //  'fieldGoalMade',
+  //  function() {
+  //    return this.get('fieldGoalAttempts') + this.get('fieldGoalMade');
+  //  }
+  //),
+  //
+  //totalThreePoints: Ember.computed(
+  //  'threePointAttempts',
+  //  'threePointMade',
+  //  function() {
+  //    return this.get('threePointAttempts') + this.get('threePointMade');
+  //  }
+  //),
 });

@@ -15,8 +15,6 @@ class Player < ActiveRecord::Base
   validates :team_id, :first_name, :last_name, :number,
             :height, :weight,  presence: true
 
-  # scope :events_by_code, ->(game_id, event_code) { where(game_id: game_id, event_code: event_code)}
-
   delegate :events_by_code, to: :game_events
 
   def full_name
@@ -24,7 +22,6 @@ class Player < ActiveRecord::Base
   end
 
   def count_events_by_code(game_id, event_code)
-    # game_events.where(game_id: game_id, event_code: event_code).count
     events_by_code(game_id, event_code).count
   end
 
@@ -45,11 +42,9 @@ class Player < ActiveRecord::Base
 
   def percent(game_id, event_code_attempt, event_code_made)
     attempts_count = count_events_by_code(game_id, event_code_attempt)
-    puts("attempts_count: #{ event_code_attempt}")
+    return 0 if attempts_count == 0
     made_count = count_events_by_code(game_id, event_code_made)
-    puts("made_count: #{made_count.inspect}")
-    return 0 if (attempts_count + made_count) == 0
-    (made_count.to_f / (attempts_count + made_count)) * 100.0
+    ((made_count.to_f / attempts_count) * 100.0).round(2)
   end
 
   def save_stats(game_id)
