@@ -3,7 +3,7 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Stats</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Compare Teams</a></li>
+        <li role="presentation"><a href="#compare-teams" aria-controls="compare-teams" role="tab" data-toggle="tab">Compare Teams</a></li>
         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
         <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
     </ul>
@@ -17,8 +17,9 @@
             <h4>Away: {{model.awayTeam.name}}</h4>
             {{team-statistic stats=model.awayTeamStats}}
         </div>
-        <div role="tabpanel" class="tab-pane" id="profile">
+        <div role="tabpanel" class="tab-pane" id="compare-teams">
             <legend>Compare Teams</legend>
+            {{compare-summary-stats data=model}}
         </div>
 
         <div role="tabpanel" class="tab-pane" id="messages">MEssage</div>

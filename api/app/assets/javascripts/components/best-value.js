@@ -1,6 +1,6 @@
 App.BestValueComponent = Ember.Component.extend({
-  tagName: 'td',
-  classNameBindings: ['isBestValue:success'],
+  tagName: 'span',
+  classNameBindings: ['isBestValue:text-primary'],
 
   //allValues: Ember.computed.mapBy(this.get('stats'), this.get('event')),
   allValues: Ember.computed('stats', 'event', function(){

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <table class="table">
+        <table class="table table-condensed">
             <thead>
             <tr>
                 <th rowspan="2">Players</th>
@@ -33,71 +33,74 @@
             </thead>
             <tbody>
             {{#each stats as |row|}}
-                <tr class={{if row.lineup 'active'}}>
-                    <td>{{row.player.nameWithNumber}}</td>
+                <tr>
+                    <td><span class={{if row.lineup 'text-primary'}}>{{row.player.nameWithNumber}}</span></td>
                     <td>{{row.freeThrowMade}}/{{row.freeThrowAttempts}}</td>
-                    {{#best-value stats=stats event='freeThrowPercent' val=row.freeThrowPercent}}
-                        {{row.freeThrowPercent}}%
-                    {{/best-value}}
+                    <td>
+                        {{#best-value stats=stats event='freeThrowPercent' val=row.freeThrowPercent}}
+                            {{row.freeThrowPercent}}%
+                        {{/best-value}}
+                    </td>
                     <td>{{row.fieldGoalMade}}/{{row.fieldGoalAttempts}}</td>
-                    {{#best-value stats=stats event='fieldGoalPercent' val=row.fieldGoalPercent}}
-                        {{row.fieldGoalPercent}}%
-                    {{/best-value}}
+                    <td>
+                        {{#best-value stats=stats event='fieldGoalPercent' val=row.fieldGoalPercent}}
+                            {{row.fieldGoalPercent}}%
+                        {{/best-value}}
+                    </td>
                     <td>{{row.threePointMade}}/{{row.threePointAttempts}}</td>
-                    {{#best-value stats=stats event='threePointPercent' val=row.threePointPercent}}
-                        {{row.threePointPercent}}%
-                    {{/best-value}}
-                    {{#best-value stats=stats event='offenciveRebounds' val=row.offenciveRebounds}}
-                        {{row.offenciveRebounds}}
-                    {{/best-value}}
-                    {{#best-value stats=stats event='deffenciveRebounds' val=row.deffenciveRebounds}}
-                        {{row.deffenciveRebounds}}
-                    {{/best-value}}
-                    {{#best-value stats=stats event='totalRebounds' val=row.totalRebounds}}
-                        {{row.totalRebounds}}
-                    {{/best-value}}
+                    <td>
+                        {{#best-value stats=stats event='threePointPercent' val=row.threePointPercent}}
+                            {{row.threePointPercent}}%
+                        {{/best-value}}
+                    </td>
+                    <td>
+                        {{#best-value stats=stats event='offenciveRebounds' val=row.offenciveRebounds}}
+                            {{row.offenciveRebounds}}
+                        {{/best-value}}
+                    </td>
+                    <td>
+                        {{#best-value stats=stats event='deffenciveRebounds' val=row.deffenciveRebounds}}
+                            {{row.deffenciveRebounds}}
+                        {{/best-value}}
+                    </td>
+                    <td>
+                        {{#best-value stats=stats event='totalRebounds' val=row.totalRebounds}}
+                            {{row.totalRebounds}}
+                        {{/best-value}}
+                    </td>
                     <td>{{row.fouls}}</td>
                     <td>{{row.foulsCommited}}</td>
                     <td>{{row.losses}}</td>
-                    {{#best-value stats=stats event='steels' val=row.steels}}
-                        {{row.steels}}
-                    {{/best-value}}
-                    {{#best-value stats=stats event='assists' val=row.assists}}
-                        {{row.assists}}
-                    {{/best-value}}
-                    {{#best-value stats=stats event='blockshots' val=row.blockshots}}
-                        {{row.blockshots}}
-                    {{/best-value}}
-                    {{#best-value stats=stats event='efficiency' val=row.efficiency}}
-                        {{row.efficiency}}
-                    {{/best-value}}
-                    {{#best-value stats=stats event='points' val=row.points}}
-                        {{row.points}}
-                    {{/best-value}}
+                    <td>
+                        {{#best-value stats=stats event='steels' val=row.steels}}
+                            {{row.steels}}
+                        {{/best-value}}
+                    </td>
+                    <td>
+                        {{#best-value stats=stats event='assists' val=row.assists}}
+                            {{row.assists}}
+                        {{/best-value}}
+                    </td>
+                    <td>
+                        {{#best-value stats=stats event='blockshots' val=row.blockshots}}
+                            {{row.blockshots}}
+                        {{/best-value}}
+                    </td>
+                    <td>
+                        {{#best-value stats=stats event='efficiency' val=row.efficiency}}
+                            {{row.efficiency}}
+                        {{/best-value}}
+                    </td>
+                    <td>
+                        {{#best-value stats=stats event='points' val=row.points}}
+                            {{row.points}}
+                        {{/best-value}}
+                    </td>
                 </tr>
             {{/each}}
             </tbody>
             <tfoot>
-                <tr>
-                    <td><strong>Totals</strong></td>
-                    <td>{{summary-by-event stats=stats event="freeThrowMade"}}/{{summary-by-event stats=stats event="freeThrowAttempts"}}</td>
-                    <td>{{percent-by-event stats=stats event-made="freeThrowMade" event-total="freeThrowAttempts"}}</td>
-                    <td>{{summary-by-event stats=stats event="fieldGoalMade"}}/{{summary-by-event stats=stats event="fieldGoalAttempts"}}</td>
-                    <td>{{percent-by-event stats=stats event-made="fieldGoalMade" event-total="fieldGoalAttempts"}}</td>
-                    <td>{{summary-by-event stats=stats event="threePointMade"}}/{{summary-by-event stats=stats event="threePointAttempts"}}</td>
-                    <td>{{percent-by-event stats=stats event-made="threePointMade" event-total="threePointAttempts"}}</td>
-                    <td>{{summary-by-event stats=stats event="offenciveRebounds"}}</td>
-                    <td>{{summary-by-event stats=stats event="deffenciveRebounds"}}</td>
-                    <td>{{summary-by-event stats=stats event="totalRebounds"}}</td>
-                    <td>{{summary-by-event stats=stats event="fouls"}}</td>
-                    <td>{{summary-by-event stats=stats event="foulsCommited"}}</td>
-                    <td>{{summary-by-event stats=stats event="assists"}}</td>
-                    <td>{{summary-by-event stats=stats event="blockshots"}}</td>
-                    <td>{{summary-by-event stats=stats event="losses"}}</td>
-                    <td>{{summary-by-event stats=stats event="steels"}}</td>
-                    <td>{{summary-by-event stats=stats event="efficiency"}}</td>
-                    <td>{{summary-by-event stats=stats event="points"}}</td>
-                </tr>
+                {{summary-row stats=stats title='Totals'}}
             </tfoot>
         </table>
     </div>
