@@ -30,7 +30,14 @@
     </tr>
     </thead>
     <tbody>
-        {{debugger}}
         {{summary-row stats=homeTeamStats title=homeTeamName}}
+        {{summary-row stats=homeTeamLineupStats title=(concat homeTeamName ' (lineup)')}}
+        {{summary-row stats=homeTeamBenchStats title=(concat homeTeamName ' (bench)')}}
+        <tr>
+            <td colspan="18"><hr></td>
+        </tr>
+        {{summary-row stats=awayTeamStats title=awayTeamName}}
+        {{summary-row stats=awayTeamLineupStats title=(concat awayTeamName ' (lineup)')}}
+        {{summary-row stats=awayTeamBenchStats title=(concat awayTeamName ' (bench)')}}
     </tbody>
 </table>
