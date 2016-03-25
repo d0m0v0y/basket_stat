@@ -36,24 +36,27 @@ App.Game = DS.Model.extend({
   }.property('id'),
 
   // Stats section
-  getStats: function(dataSource) {
-    var team = this.get(dataSource);
-    var stats = this.get('statistics');
-    return stats.filter(function (item) {
-      return item.get('team.id') == team.get('id');
-    })
-  },
-
-  homeTeamStatsUnordered: Ember.computed(function(){
-    return this.getStats('homeTeam');
+  homeTeamStatsUnordered: Ember.computed.filter('statistics', function(row){
+    return row.get('team.id') == this.get('homeTeam.id')
   }),
-  awayTeamStatsUnordered: Ember.computed(function () {
-    return this.getStats('awayTeam');
+  awayTeamStatsUnordered: Ember.computed.filter('statistics', function(row){
+    return row.get('team.id') == this.get('awayTeam.id')
   }),
 
   lineupOrder: ['lineup:desc'],
   homeTeamStats: Ember.computed.sort('homeTeamStatsUnordered', 'lineupOrder'),
   awayTeamStats: Ember.computed.sort('awayTeamStatsUnordered', 'lineupOrder'),
 
+  //homeTeamLineupStats: Ember.computed.filterBy('homeTeamStats', 'lineup', true),
+  //homeTeamBenchStats: Ember.computed.filterBy('homeTeamStats', 'lineup', false),
+  //
+  //awayTeamLineupStats: Ember.computed.filterBy('awayTeamStats', 'lineup', true),
+  //awayTeamBenchStats: Ember.computed.filterBy('awayTeamStats', 'lineup', false),
+
+  //homeLineupFT: Ember.computed('homeTeamLineupStats', function(){
+  //  //debugger;
+  //  return this.summary('homeTeamLineupStats', 'freeThrowMade');
+  //}),
+  //homeLineupFT: Ember.computed.sum('homeTeamLineupStats.@each.freeThrowMade'),
 
 });

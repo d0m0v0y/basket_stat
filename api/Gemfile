@@ -47,6 +47,7 @@ gem 'ember-source', '~> 1.13.13'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'momentjs-rails', '~> 2.9.0'
 gem 'round_robin_tournament'
+gem "highcharts-rails", "4.1.9"
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.3.3'

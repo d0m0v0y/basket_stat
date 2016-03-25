@@ -5,6 +5,9 @@
 //= require moment_duration_format
 //= require pikaday
 
+//= require highcharts
+//= require highcharts/highcharts-more
+
 //= require ember
 //= require ember-data
 //= require ember-template-compiler
