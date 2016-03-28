@@ -4,8 +4,7 @@
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Stats</a></li>
         <li role="presentation"><a href="#compare-teams" aria-controls="compare-teams" role="tab" data-toggle="tab">Compare Teams</a></li>
-        <li role="presentation"><a href="#compare-teams-charts" aria-controls="compare-teams-charts" role="tab" data-toggle="tab">Compare Teams Charts</a></li>
-        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+        <li role="presentation"><a href="#compare-teams-charts" aria-controls="compare-teams-charts" role="tab" data-toggle="tab">Charts</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -23,9 +22,61 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="compare-teams-charts">
-            {{compare-summary-charts gameData=model}}
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <legend>Charts</legend>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#chart-1" aria-controls="chart-1" role="tab"
+                                                                      data-toggle="tab">Overall</a></li>
+                            <li role="presentation"><a href="#chart-2" aria-controls="chart-2" role="tab" data-toggle="tab">Home: {{model.homeTeam.name}}</a>
+                            </li>
+                            <li role="presentation"><a href="#chart-3" aria-controls="chart-3" role="tab" data-toggle="tab">Away: {{model.awayTeam.name}}</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="chart-1">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        {{compare-summary-charts gameData=model}}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <legend>Points {{model.homeTeam.name}} - {{model.homeTeamScores}}</legend>
+                                        {{points-chart gameData=model team=model.homeTeam}}
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <legend>Points {{model.awayTeam.name}} - {{model.awayTeamScores}}</legend>
+                                        {{points-chart gameData=model team=model.awayTeam}}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div id="chart-2" class="tab-pane" role="tabpanel">
+                                <legend>Points</legend>
+                                {{by-event-chart data=model.homeTeamStats chartName='Points' event='points'}}
+                                <legend>Efficiency</legend>
+                                {{by-event-chart data=model.homeTeamStats chartName='Efficiency' event='efficiency'}}
+                            </div>
+                            <div id="chart-3" class="tab-pane" role="tabpanel">
+                                <legend>Points</legend>
+                                {{by-event-chart data=model.awayTeamStats chartName='Points' event='points'}}
+                                <legend>Efficiency</legend>
+                                {{by-event-chart data=model.awayTeamStats chartName='Efficiency' event='efficiency'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="settings">settings</div>
     </div>
 </div>
 

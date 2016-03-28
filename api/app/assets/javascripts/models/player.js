@@ -9,6 +9,8 @@ App.Player = DS.Model.extend({
 
   team: DS.belongsTo('team', { async: true}),
 
+  statistics: DS.hasMany('statistic', { async: true}),
+
   fullName: function () {
     return this.get('firstName') + ' ' + this.get('lastName');
   }.property('firstName', 'lastName'),

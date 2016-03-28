@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-12">
         <table class="table table-condensed">
             <thead>
             <tr>
@@ -34,7 +34,7 @@
             <tbody>
             {{#each stats as |row|}}
                 <tr>
-                    <td><span class={{if row.lineup 'text-primary'}}>{{row.player.nameWithNumber}}</span></td>
+                    <td><span class={{if row.lineup 'text-primary'}}>{{row.playerName}}</span></td>
                     <td>{{row.freeThrowMade}}/{{row.freeThrowAttempts}}</td>
                     <td>
                         {{#best-value stats=stats event='freeThrowPercent' val=row.freeThrowPercent}}

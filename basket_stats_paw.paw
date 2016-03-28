@@ -769,7 +769,7 @@
     </object>
     <object type="LMREQUEST" id="z171">
         <attribute name="uuid" type="string">2ACDCF9F-5F4A-4E7B-BB9F-09B3AF1B2219</attribute>
-        <attribute name="url" type="string">[{"data":{"environmentVariable":"4A7A685F-F970-4122-B10D-ECB13186B38D"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/statistics?game_id=4"]</attribute>
+        <attribute name="url" type="string">[{"data":{"environmentVariable":"4A7A685F-F970-4122-B10D-ECB13186B38D"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/statistics?game_id=11"]</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -780,7 +780,7 @@
         <attribute name="name" type="string">game stats</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z162"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z128 z116 z142"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z142 z128 z116"></relationship>
     </object>
     <object type="LMREQUEST" id="z172">
         <attribute name="uuid" type="string">4087DDEA-F719-4E16-ABB5-504A97ACB6EC</attribute>
@@ -942,7 +942,7 @@
     </object>
     <object type="LMREQUEST" id="z182">
         <attribute name="uuid" type="string">80D7F5BE-B80E-43F8-A4C3-8EF8CAA4262E</attribute>
-        <attribute name="url" type="string">http://localhost:3000/api/v1/teams/3</attribute>
+        <attribute name="url" type="string">http://localhost:3000/api/v1/teams/12</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>

@@ -1,4 +1,5 @@
-App.CompareSummaryChartsComponent = Ember.Component.extend({
+App.CompareSummaryChartsComponent = App.CommonChartComponent.extend({
+  //layoutName: 'components/common-chart',
   gameData: null,
   chartKeys: [
     'freeThrowMade', 'freeThrowPercent',
@@ -68,16 +69,9 @@ App.CompareSummaryChartsComponent = Ember.Component.extend({
         }
       }
     },
-    //tooltip: {
-    //  formatter: function () {
-    //    return '<b>' + this.x + '</b><br/>' +
-    //      this.series.name + ': ' + this.y + '<br/>' +
-    //      'Total: ' + this.total;
-    //  }
-    //},
+
     plotOptions: {
       column: {
-        //stacking: 'normal',
         dataLabels: {
           enabled: true
         }

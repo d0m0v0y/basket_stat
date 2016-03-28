@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160312100243) do
+ActiveRecord::Schema.define(version: 20160327160701) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -110,6 +110,14 @@ ActiveRecord::Schema.define(version: 20160312100243) do
     t.integer  "position",   limit: 4
   end
 
+  create_table "players_statistics", force: :cascade do |t|
+    t.integer "player_id",    limit: 4
+    t.integer "statistic_id", limit: 4
+  end
+
+  add_index "players_statistics", ["player_id"], name: "index_players_statistics_on_player_id", using: :btree
+  add_index "players_statistics", ["statistic_id"], name: "index_players_statistics_on_statistic_id", using: :btree
+
   create_table "season_schedules", force: :cascade do |t|
     t.integer  "day",          limit: 4
     t.integer  "season_id",    limit: 4
@@ -145,7 +153,6 @@ ActiveRecord::Schema.define(version: 20160312100243) do
   add_index "seasons", ["championship_id"], name: "index_seasons_on_championship_id", using: :btree
 
   create_table "statistics", force: :cascade do |t|
-    t.integer "player_id",            limit: 4
     t.integer "game_id",              limit: 4
     t.integer "team_id",              limit: 4
     t.time    "played_time"
