@@ -3,6 +3,7 @@ class Game < ActiveRecord::Base
   belongs_to :away_team, class_name: 'Team'
   has_many :statistics
   has_many :lineups
+  has_many :game_events
 
   validates :away_team_id, :home_team_id, :date, presence: true
 

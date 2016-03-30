@@ -32,11 +32,21 @@
                     <div class="col-lg-12">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#chart-1" aria-controls="chart-1" role="tab"
-                                                                      data-toggle="tab">Overall</a></li>
-                            <li role="presentation"><a href="#chart-2" aria-controls="chart-2" role="tab" data-toggle="tab">Home: {{model.homeTeam.name}}</a>
+                            <li role="presentation" class="active">
+                                <a href="#chart-1" aria-controls="chart-1" role="tab"
+                                   data-toggle="tab">Overall</a>
                             </li>
-                            <li role="presentation"><a href="#chart-3" aria-controls="chart-3" role="tab" data-toggle="tab">Away: {{model.awayTeam.name}}</a>
+                            <li role="presentation">
+                                <a href="#chart-2" aria-controls="chart-2" role="tab"
+                                   data-toggle="tab">Home: {{model.homeTeam.name}}</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#chart-3" aria-controls="chart-3" role="tab"
+                                   data-toggle="tab">Away: {{model.awayTeam.name}}</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#chart-4" aria-controls="chart-4" role="tab"
+                                   data-toggle="tab">Game Line</a>
                             </li>
                         </ul>
 
@@ -71,6 +81,10 @@
                                 {{by-event-chart data=model.awayTeamStats chartName='Points' event='points'}}
                                 <legend>Efficiency</legend>
                                 {{by-event-chart data=model.awayTeamStats chartName='Efficiency' event='efficiency'}}
+                            </div>
+                            <div id="chart-4" class="tab-pane" role="tabpanel">
+                                <legend>Game Line</legend>
+                                {{game-line-chart gameData=model}}
                             </div>
                         </div>
                     </div>

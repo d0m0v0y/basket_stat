@@ -8,4 +8,5 @@ class GameSerializer < ActiveModel::Serializer
   # has_one :home_team, root: :teams
   # has_one :away_team, root: :teams
   has_many :statistics
+  has_many :game_events
 end

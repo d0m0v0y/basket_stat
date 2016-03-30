@@ -9,6 +9,7 @@ App.Game = DS.Model.extend({
   awayTeamScores: DS.attr(),
 
   statistics: DS.hasMany('statistic'),
+  gameEvents: DS.hasMany('gameEvent'),
 
   isFinished: function(){
     return Ember.isPresent(this.get('finishedAt'));
