@@ -722,7 +722,7 @@
     </object>
     <object type="LMREQUEST" id="z168">
         <attribute name="uuid" type="string">9FEBC203-DD40-45D8-B6FC-1BC1579D1091</attribute>
-        <attribute name="url" type="string">[{"data":{"environmentVariable":"4A7A685F-F970-4122-B10D-ECB13186B38D"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/games\\/2"]</attribute>
+        <attribute name="url" type="string">[{"data":{"environmentVariable":"4A7A685F-F970-4122-B10D-ECB13186B38D"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/games\\/11"]</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
