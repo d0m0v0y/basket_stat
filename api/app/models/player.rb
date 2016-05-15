@@ -35,7 +35,7 @@ class Player < ActiveRecord::Base
   end
 
   def points(game_id)
-    total_points = events_by_code(game_id, :ftm).count +
+    total_points = events_by_code(game_id, :ftm).count     +
                    2 * events_by_code(game_id, :fgm).count +
                    3 * events_by_code(game_id, :fgm3).count
     total_points
