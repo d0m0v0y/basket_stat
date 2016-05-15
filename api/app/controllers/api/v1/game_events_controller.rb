@@ -16,7 +16,6 @@ module Api
       def game_event_params
         params.require(:game_event).permit(:game_id, :player_id, :event_code, :event_time)
       end
-
     end
   end
 end

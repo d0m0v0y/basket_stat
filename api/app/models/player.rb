@@ -6,15 +6,15 @@ class Player < ActiveRecord::Base
   has_and_belongs_to_many :statistics
 
   enum position: {
-      point_guard: 1,
-      shooting_guard: 2,
-      small_forward: 3,
-      power_forward: 4,
-      center: 5
+    point_guard: 1,
+    shooting_guard: 2,
+    small_forward: 3,
+    power_forward: 4,
+    center: 5
   }
 
   validates :team_id, :first_name, :last_name, :number,
-            :height, :weight,  presence: true
+            :height, :weight, presence: true
 
   delegate :events_by_code, to: :game_events
 
@@ -35,9 +35,9 @@ class Player < ActiveRecord::Base
   end
 
   def points(game_id)
-     total_points = events_by_code(game_id, :ftm).count +
-         2 * events_by_code(game_id, :fgm).count +
-         3 * events_by_code(game_id, :fgm3).count
+    total_points = events_by_code(game_id, :ftm).count +
+                   2 * events_by_code(game_id, :fgm).count +
+                   3 * events_by_code(game_id, :fgm3).count
     total_points
   end
 
@@ -83,28 +83,27 @@ class Player < ActiveRecord::Base
 
   def efficiency(game_id)
     efficiency_table = [
-        { event: :ast, multiplier: 1.0 },
-        { event: :stl, multiplier: 1.4 },
-        { event: :drb, multiplier: 1.2 },
-        { event: :orb, multiplier: 1.4 },
-        { event: :pfc, multiplier: 0.5 },
-        { event: :blk, multiplier: 1.2 },
-        { event: :fga, multiplier: -1.0 },
-        { event: :fga3, multiplier: -1.5 },
-        { event: :fta, multiplier: -0.8 },
-        { event: :los, multiplier: -1.4 },
-        { event: :pf, multiplier: -1.0 },
+      { event: :ast, multiplier: 1.0 },
+      { event: :stl, multiplier: 1.4 },
+      { event: :drb, multiplier: 1.2 },
+      { event: :orb, multiplier: 1.4 },
+      { event: :pfc, multiplier: 0.5 },
+      { event: :blk, multiplier: 1.2 },
+      { event: :fga, multiplier: -1.0 },
+      { event: :fga3, multiplier: -1.5 },
+      { event: :fta, multiplier: -0.8 },
+      { event: :los, multiplier: -1.4 },
+      { event: :pf, multiplier: -1.0 }
     ]
     eff = (points(game_id) +
-        efficiency_table.inject(0) do |sum, row|
-          sum + row[:multiplier] * count_events_by_code(game_id, row[:event])
-        end)
-        #/ (played_time(game_id)/60.0)
+          efficiency_table.inject(0) do |sum, row|
+            sum + row[:multiplier] * count_events_by_code(game_id, row[:event])
+          end)
+    # / (played_time(game_id)/60.0)
     eff.round(2)
   end
 
   def lineup?(game_id)
     Lineup.where(game_id: game_id, team_id: team.id, player_id: id).any?
   end
-
 end
